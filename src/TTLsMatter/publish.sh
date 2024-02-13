@@ -1,0 +1,1 @@
+dotnet publish --configuration Release --property WarningLevel=0 --runtime linux-x64 -p:PublishSingleFile=true --self-contained false -p:DebugType=None -p:IncludeSymbols=false -o "bin"
