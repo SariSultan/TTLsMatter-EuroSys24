@@ -27,6 +27,10 @@ class Program
     const string MRC_PLOTS_DATA_MAE_DIR = "MRCs-AE-2024-plots-data-mae";
     const string MRC_PLOTS_DATA_THROUGHPUT_DIR = "MRCs-AE-2024-plots-data-throughput";
 
+    public static bool SINGLE_TRACE_MODE = false;
+    public static string SINGLE_TRACE_PATH ;
+    
+  
     /// <summary>
     /// The main program for the Artifact Evaluation of the paper
     /// TTLs Matter - EuroSys'24 - Sari Sultan et al. 
@@ -36,8 +40,30 @@ class Program
     /// all the figures. We have spent significant time to make sure all you need to do is to run the program once (nothing else).
     /// 
     /// </summary>
-    static void Main()
+    static void Main(string[] args)
     {
+        /*Added the following to enable processing a single trace*/
+        if (args.Length>0)
+        {
+            if (args.Length==1)
+            {
+                SINGLE_TRACE_MODE = true;
+                SINGLE_TRACE_PATH = args[0].Trim();
+                if (!File.Exists(SINGLE_TRACE_PATH))
+                {
+                    Console.WriteLine($"The file path you provided does not exist [{SINGLE_TRACE_PATH}]");
+                    return;
+                }
+                Console.WriteLine($"SINGLE TRACE MODE ENABLED");
+            }
+            else
+            {
+                Console.WriteLine($"Single trace usage: ./TTLsMatter <trace_path>");
+                return;
+            }
+        }
+        
+        /*The rest of the code for processing all the traces*/
         var startTime = DateTime.Now;
         try
         {

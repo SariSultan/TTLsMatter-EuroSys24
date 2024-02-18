@@ -37,6 +37,14 @@ public static class DatasetFactory
         switch (t)
         {
             case DataSetType.FilteredTwitter:
+                if (Program.SINGLE_TRACE_MODE)
+                {
+                    return new List<string>()
+                    {
+                        Program.SINGLE_TRACE_PATH
+                    };
+                }
+                
                 return RecommendedTwitterTraces.GetTraceFiles(DatasetConfig.TwitterTracesDir, false, false, false,
                     new List<int>()
                     {
